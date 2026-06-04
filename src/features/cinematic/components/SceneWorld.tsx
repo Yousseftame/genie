@@ -81,7 +81,7 @@ export function SceneWorld() {
           angle={0.6}
           penumbra={0.8}
           intensity={800}
-          color={CINEMATIC_THEME.white}
+          color="#ffffff"
           castShadow
           target-position={[0, 4, -15]}
         />

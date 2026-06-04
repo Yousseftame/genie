@@ -1,5 +1,5 @@
 import ambtionImg from "@/assets/ambtion.png";
-import heartImg from "@/assets/heartscreenshot.png";
+import heartImg from "@/assets/AmbitionScreenshot.png";
 import kidImg from "@/assets/kid.png";
 import thanksImg from "@/assets/thanks.png";
 
