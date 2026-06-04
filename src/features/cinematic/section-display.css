@@ -1,0 +1,136 @@
+/* Section copy — uses .cinematic-root CSS variables */
+
+.cinematic-char {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.section-stage {
+  position: relative;
+  width: 100%;
+  max-width: min(36rem, 92vw);
+  padding-bottom: clamp(2rem, 8vh, 5rem);
+}
+
+.section-index {
+  position: absolute;
+  top: -0.15em;
+  left: -0.05em;
+  font-size: clamp(3.5rem, 10vw, 6rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: rgba(8, 29, 85, 0.35);
+  pointer-events: none;
+  user-select: none;
+}
+
+.section-body {
+  position: relative;
+  padding-left: clamp(2.5rem, 8vw, 4rem);
+}
+
+.section-kicker {
+  margin: 0 0 0.65rem;
+  font-size: clamp(0.65rem, 1.5vw, 0.72rem);
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--cine-kicker);
+}
+
+.section-title {
+  margin: 0 0 0.85rem;
+  font-size: clamp(2.4rem, 7vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: capitalize;
+  color: #fff;
+}
+
+.section-title-main {
+  display: block;
+}
+
+.section-title-accent {
+  display: block;
+  margin-top: 0.06em;
+  font-size: 0.92em;
+  font-weight: 900;
+  color: var(--cine-gold);
+}
+
+.section-title--stacked {
+  text-transform: capitalize;
+}
+
+.section-detail {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+  line-height: 1.55;
+  color: var(--cine-text-muted);
+  max-width: 28rem;
+}
+
+.section-stage--compact {
+  padding-left: clamp(0.25rem, 2vw, 1rem);
+}
+
+.section-stage--compact .section-title {
+  font-size: clamp(2.2rem, 6vw, 3.75rem);
+}
+
+.section-stage--signal .section-index {
+  position: static;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  color: var(--cine-kicker);
+}
+
+.section-signal-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.section-signal-live {
+  color: var(--cine-gold);
+}
+
+.section-signal-live::before {
+  content: "● ";
+  animation: section-live-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes section-live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (max-width: 640px) {
+  .section-body {
+    padding-left: 2rem;
+  }
+
+  .section-index {
+    font-size: 2.75rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .section-stage {
+    max-width: 40rem;
+  }
+}
