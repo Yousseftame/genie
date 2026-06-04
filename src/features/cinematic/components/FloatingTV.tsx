@@ -56,17 +56,18 @@ export function FloatingTV({
       }
     });
 
-    clone.updateMatrixWorld(true);
-    const placement =
-      screenPoster && variant === "flat"
-        ? extractTvScreenPlacement(clone)
-        : null;
     const box = new THREE.Box3().setFromObject(clone);
     const size = new THREE.Vector3();
     box.getSize(size);
     const center = new THREE.Vector3();
     box.getCenter(center);
     clone.position.sub(center);
+
+    clone.updateMatrixWorld(true);
+    const placement =
+      screenPoster && variant === "flat"
+        ? extractTvScreenPlacement(clone)
+        : null;
 
     const height = Math.max(size.y, 0.001);
     const normalizedScale = fitHeight ? fitHeight / height : 1;

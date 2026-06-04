@@ -50,13 +50,10 @@ export function extractTvScreenPlacement(
   mesh.getWorldPosition(worldPos);
   mesh.getWorldQuaternion(worldQuat);
 
-  const parent = mesh.parent;
-  if (parent) {
-    parent.worldToLocal(worldPos);
-    const parentQuat = new THREE.Quaternion();
-    parent.getWorldQuaternion(parentQuat);
-    worldQuat.premultiply(parentQuat.invert());
-  }
+  root.worldToLocal(worldPos);
+  const rootQuat = new THREE.Quaternion();
+  root.getWorldQuaternion(rootQuat);
+  worldQuat.premultiply(rootQuat.invert());
 
   const euler = new THREE.Euler().setFromQuaternion(worldQuat);
   const box = new THREE.Box3().setFromObject(mesh);

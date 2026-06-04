@@ -16,21 +16,36 @@ export const CAMERA_KEYFRAMES: CameraKeyframe[] = [
     target: [0, 0.8, -12],
     fov: 38,
   },
+  // Helicopter View
   {
-    position: [-4.8, 1.8, -14],
-    target: [0, 0.5, -24],
+    position: [0, 15, -48],
+    target: [0, 0, -48],
+    fov: 44,
+  },
+  // Fly Down
+  {
+    position: [8, 1.8, -48],
+    target: [0, 1, -48],
+    fov: 44,
+  },
+  // Pan around ring (Couch scene)
+  {
+    position: [-8, 1.8, -48],
+    target: [0, 1, -48],
+    fov: 44,
+  },
+  // Enter Cinema
+  {
+    position: [0, 6, -85],
+    target: [0, 2, -100],
     fov: 40,
   },
+  // Seated in Cinema
   {
-    position: [0.6, 3.2, -22],
-    target: [0, 1.2, -36],
-    fov: 36,
-  },
-  {
-    position: [0, 1.2, -30],
-    target: [0, 0.8, -48],
+    position: [0, 1.2, -92],
+    target: [0, 2, -100],
     fov: 44,
   },
 ];
 
-export const SCENE_Z_POSITIONS = [0, -12, -24, -36, -48] as const;
+export const SCENE_Z_POSITIONS = [0, -12, -48, -100] as const;

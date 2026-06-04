@@ -1,7 +1,28 @@
-import { MeshReflectorMaterial } from "@react-three/drei";
+import { MeshReflectorMaterial, useTexture } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { CINEMATIC_THEME } from "../config/cinematicTheme";
+import { BRAND } from "../config/brand";
 import { FloatingTV } from "./FloatingTV";
+import { RemoteModel } from "./RemoteModel";
+
+function LogoCard() {
+  const tex = useTexture(BRAND.logoSrc);
+  return (
+    // Tilt the card up (less negative X rotation) so it faces the camera more,
+    // and raise it slightly so it doesn't clip into the floor when tilted.
+    <group position={[-2.8, -1.9, 1.2]} rotation={[-1.2, 0, -0.2]}>
+      <mesh castShadow receiveShadow>
+        <boxGeometry args={[1.8, 0.9, 0.04]} />
+        <meshStandardMaterial color={CINEMATIC_THEME.navyDeep} roughness={0.7} />
+      </mesh>
+      <mesh position={[0, 0, 0.021]}>
+        <planeGeometry args={[1.5, 0.6]} />
+        <meshBasicMaterial map={tex} transparent />
+      </mesh>
+    </group>
+  );
+}
+useTexture.preload(BRAND.logoSrc);
 
 function getHeroLayout(aspect: number) {
   if (aspect >= 1.2) {
@@ -18,15 +39,26 @@ export function HeroTV() {
   const layout = getHeroLayout(size.width / size.height);
 
   return (
-    <FloatingTV
-      variant="crt"
-      position={[0, -0.25, 0.6]}
-      scale={layout.scale}
-      fitHeight={layout.fitHeight}
-      rotation={[0, Math.PI, 0]}
-      floatIntensity={0.7}
-      screenLogo
-    />
+    <group>
+      <FloatingTV
+        variant="crt"
+        position={[0, -0.25, 0.6]}
+        scale={layout.scale}
+        fitHeight={layout.fitHeight}
+        rotation={[0, Math.PI, 0]}
+        floatIntensity={0.7}
+        screenLogo
+      />
+      {/* Remote resting on the "table" next to the TV */}
+      <RemoteModel
+        position={[2.8, -2.05, 1.2]}
+        scale={1.2}
+        rotation={[0, -0.3, 0]}
+        floatIntensity={0}
+      />
+      {/* Small logo card on the left side */}
+      <LogoCard />
+    </group>
   );
 }
 

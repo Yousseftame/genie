@@ -4,10 +4,10 @@ import { useRef } from "react";
 import * as THREE from "three";
 
 const GENRES = [
-  { label: "Sci-Fi", color: "#1a3d7a", position: [-3.5, 1.2, -23] as const },
-  { label: "Drama", color: "#fdbf3f", position: [0, 2.4, -25] as const },
-  { label: "Comedy", color: "#f5d078", position: [3.8, 1, -23.5] as const },
-  { label: "Thriller", color: "#0c2866", position: [-1.2, -0.4, -26.5] as const },
+  { label: "Sci-Fi", color: "#1a3d7a", position: [-3.5, 1.2, 1] as const },
+  { label: "Drama", color: "#fdbf3f", position: [0, 2.4, -1] as const },
+  { label: "Comedy", color: "#f5d078", position: [3.8, 1, 0.5] as const },
+  { label: "Thriller", color: "#0c2866", position: [-1.2, -0.4, -2.5] as const },
 ];
 
 export function GenreOrbs() {
@@ -19,7 +19,7 @@ export function GenreOrbs() {
   });
 
   return (
-    <group ref={groupRef} position={[0, 0, -24]}>
+    <group ref={groupRef} position={[0, 0, 0]}>
       {GENRES.map((genre, i) => (
         <Float
           key={genre.label}
