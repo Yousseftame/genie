@@ -40,16 +40,17 @@ export function extractTvScreenPlacement(
   });
 
   if (!screenMesh) return null;
+  const mesh = screenMesh as THREE.Mesh;
 
-  screenMesh.visible = false;
-  screenMesh.updateMatrixWorld(true);
+  mesh.visible = false;
+  mesh.updateMatrixWorld(true);
 
   const worldPos = new THREE.Vector3();
   const worldQuat = new THREE.Quaternion();
-  screenMesh.getWorldPosition(worldPos);
-  screenMesh.getWorldQuaternion(worldQuat);
+  mesh.getWorldPosition(worldPos);
+  mesh.getWorldQuaternion(worldQuat);
 
-  const parent = screenMesh.parent;
+  const parent = mesh.parent;
   if (parent) {
     parent.worldToLocal(worldPos);
     const parentQuat = new THREE.Quaternion();
@@ -58,7 +59,7 @@ export function extractTvScreenPlacement(
   }
 
   const euler = new THREE.Euler().setFromQuaternion(worldQuat);
-  const box = new THREE.Box3().setFromObject(screenMesh);
+  const box = new THREE.Box3().setFromObject(mesh);
   const size = new THREE.Vector3();
   box.getSize(size);
 
