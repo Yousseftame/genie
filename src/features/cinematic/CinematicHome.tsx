@@ -13,6 +13,7 @@ import {
 } from "./context/ExperienceReadyContext";
 import { useCinematicScroll } from "./hooks/useCinematicScroll";
 import { usePreloadBrandAssets } from "./hooks/usePreloadBrandAssets";
+import { CanvasErrorBoundary } from "@/components/ErrorBoundary/CanvasErrorBoundary";
 import "./cinematic.css";
 import "./section-display.css";
 
@@ -37,9 +38,13 @@ function CinematicScrollTrack({ enabled }: { enabled: boolean }) {
 }
 
 function CinematicExperience({ uiEnabled }: { uiEnabled: boolean }) {
+  const { markSceneReady } = useExperienceReady();
+
   return (
     <main className="cinematic-root cinematic-root--ready">
-      <CinematicCanvas />
+      <CanvasErrorBoundary onError={markSceneReady}>
+        <CinematicCanvas />
+      </CanvasErrorBoundary>
       {uiEnabled && <ScrollOverlay />}
       <CinematicScrollTrack enabled={uiEnabled} />
       <CinematicScrollDriver enabled={uiEnabled} />
