@@ -1,9 +1,9 @@
 import {
   Cloud,
   Environment,
-  MeshReflectorMaterial,
   Stars,
 } from "@react-three/drei";
+import { Suspense, useRef } from "react";
 import {
   TRENDING_POSTERS,
   RING_POSTERS,
@@ -20,6 +20,12 @@ import { SceneBootstrapped } from "./SceneBootstrapped";
 import { SceneLights } from "./SceneLights";
 import * as THREE from "three";
 
+/** A stable Object3D for the projector spotlight target — must not be created inline in JSX */
+function ProjectorTarget() {
+  const obj = useRef(new THREE.Object3D()).current;
+  return <primitive object={obj} position={[0, 4, -15]} />;
+}
+
 export function SceneWorld() {
   return (
     <>
@@ -34,15 +40,19 @@ export function SceneWorld() {
 
       {/* Scene 1 — Hero */}
       <group position={[0, 0, SCENE_Z_POSITIONS[0]]}>
-        <HeroTV />
+        <Suspense fallback={null}>
+          <HeroTV />
+        </Suspense>
         <HeroReflector />
       </group>
 
       {/* Scene 2 — Trending posters */}
       <group position={[0, 0, SCENE_Z_POSITIONS[1]]}>
-        {TRENDING_POSTERS.map((poster) => (
-          <PosterPlane key={poster.title} config={poster} />
-        ))}
+        <Suspense fallback={null}>
+          {TRENDING_POSTERS.map((poster) => (
+            <PosterPlane key={poster.title} config={poster} />
+          ))}
+        </Suspense>
         <Cloud
           opacity={0.22}
           speed={0.12}
@@ -53,12 +63,16 @@ export function SceneWorld() {
         />
       </group>
 
-      {/* Scene 3 — CTA (was Scene 5) */}
+      {/* Scene 3 — CTA */}
       <group position={[0, 0, SCENE_Z_POSITIONS[2]]}>
-        <CouchModel position={[0, -1.8, 0]} scale={0.7} />
-        {RING_POSTERS.map((poster) => (
-          <PosterPlane key={poster.title} config={poster} scrollFactor={0} />
-        ))}
+        <Suspense fallback={null}>
+          <CouchModel position={[0, -1.8, 0]} scale={0.7} />
+        </Suspense>
+        <Suspense fallback={null}>
+          {RING_POSTERS.map((poster) => (
+            <PosterPlane key={poster.title} config={poster} scrollFactor={0} />
+          ))}
+        </Suspense>
         <mesh position={[0, -1.8, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
           <ringGeometry args={[2.2, 3.8, 64]} />
           <meshStandardMaterial
@@ -72,9 +86,12 @@ export function SceneWorld() {
           />
         </mesh>
       </group>
+
       {/* Scene 4 — The Premiere (Finale) */}
       <group position={[0, 0, SCENE_Z_POSITIONS[3]]}>
-        <CinemaModel position={[0, -2.5, 0]} />
+        <Suspense fallback={null}>
+          <CinemaModel position={[0, -2.5, 0]} />
+        </Suspense>
         {/* Projector Light */}
         <spotLight
           position={[0, 8, 15]}
@@ -85,7 +102,7 @@ export function SceneWorld() {
           castShadow
           target-position={[0, 4, -15]}
         />
-        <primitive object={new THREE.Object3D()} position={[0, 4, -15]} />
+        <ProjectorTarget />
       </group>
     </>
   );

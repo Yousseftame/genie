@@ -23,6 +23,12 @@ export function CinematicCanvas() {
           antialias: true,
           alpha: true,
           powerPreference: "high-performance",
+          /** Prevents silent blank canvas when the browser selects a software
+           *  renderer (e.g. on low-power mobile GPUs). Without this flag, WebGL
+           *  initialises in software mode and Three.js renders nothing visible. */
+          failIfMajorPerformanceCaveat: false,
+          /** Keeps GPU VRAM usage lower — we don't need to read back pixel data */
+          preserveDrawingBuffer: false,
         }}
         onCreated={({ gl, scene }) => {
           gl.setClearColor(0x050f2e, 0);
